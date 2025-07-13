@@ -1,5 +1,30 @@
 # Drawing Insight Desktop 開発仕様書
 
+## ダウンロードとインストール
+
+### Windows版
+最新のWindows版は[Releasesページ](https://github.com/genkis3zu/drawing-insight-desktop/releases)からダウンロードできます。
+
+1. `Drawing-Insight-Desktop-win.zip`をダウンロード
+2. ZIPファイルを解凍
+3. `Drawing Insight Desktop.exe`を実行
+
+### 開発者向けビルド手順
+```bash
+# リポジトリをクローン
+git clone https://github.com/genkis3zu/drawing-insight-desktop.git
+cd drawing-insight-desktop
+
+# 依存関係をインストール
+npm install
+
+# ビルド
+npm run build
+
+# Windows用実行ファイルを作成
+npm run dist:win
+```
+
 ## プロジェクト概要
 
 本プロジェクトは、Electron.jsを基盤としたデスクトップアプリケーションとして、AI技術を活用した図面解析システムを開発するものです。ユーザーは図面ファイルをアップロードし、AI解析結果をテーブル形式で確認および活用することができます。
