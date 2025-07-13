@@ -1,0 +1,46 @@
+{
+  "name": "drawing-insight-desktop",
+  "version": "1.0.0",
+  "description": "## プロジェクト概要",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "electron": "electron dist/main.js",
+    "dist": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/genkis3zu/drawing-insight-desktop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/genkis3zu/drawing-insight-desktop/issues"
+  },
+  "homepage": "https://github.com/genkis3zu/drawing-insight-desktop#readme",
+  "devDependencies": {
+    "@types/node": "^24.0.13",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "css-loader": "^7.1.2",
+    "electron": "^37.2.1",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "webpack": "^5.100.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  },
+  "dependencies": {
+    "antd": "^5.26.4",
+    "axios": "^1.10.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sqlite3": "^5.1.7"
+  }
+}
