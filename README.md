@@ -1,15 +1,34 @@
-# Drawing Insight Desktop 開発仕様書
+# Drawing Insight Desktop
 
-## ダウンロードとインストール
+AI技術を活用した図面解析システム - Electronデスクトップアプリケーション
 
-### Windows版
-最新のWindows版は[Releasesページ](https://github.com/genkis3zu/drawing-insight-desktop/releases)からダウンロードできます。
+[![Build Status](https://github.com/genkis3zu/drawing-insight-desktop/workflows/build/badge.svg)](https://github.com/genkis3zu/drawing-insight-desktop/actions)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](package.json)
 
-1. `Drawing-Insight-Desktop-win.zip`をダウンロード
-2. ZIPファイルを解凍
+## 📖 概要
+
+Drawing Insight Desktopは、AI技術を活用して図面ファイルを自動解析し、寸法情報や部品リストを抽出するデスクトップアプリケーションです。建築、機械、電気などの分野の図面処理を効率化します。
+
+### ✨ 主な機能
+
+- 📁 **ファイルアップロード**: JPEG、PNG、PDF、DWG、DXF形式に対応
+- 🤖 **AI解析**: OpenAI GPT-4 Vision / Google Vision APIによる自動解析
+- 📊 **データ表示**: 解析結果をテーブル形式で表示・編集
+- 💾 **データ管理**: SQLiteによるローカルデータベース
+- 📤 **エクスポート**: CSV、Excel形式での結果出力
+- 🔒 **セキュリティ**: エンドツーエンド暗号化とローカル処理
+
+## 🚀 クイックスタート
+
+### ユーザー向け
+
+1. [Releasesページ](https://github.com/genkis3zu/drawing-insight-desktop/releases)から最新版をダウンロード
+2. `Drawing-Insight-Desktop-win.zip`を解凍
 3. `Drawing Insight Desktop.exe`を実行
 
-### 開発者向けビルド手順
+### 開発者向け
+
 ```bash
 # リポジトリをクローン
 git clone https://github.com/genkis3zu/drawing-insight-desktop.git
@@ -18,132 +37,216 @@ cd drawing-insight-desktop
 # 依存関係をインストール
 npm install
 
-# ビルド
-npm run build
+# 開発サーバーを起動
+npm run dev
 
-# Windows用実行ファイルを作成
-npm run dist:win
+# 別ターミナルでElectronを起動
+npm run electron
 ```
 
-## プロジェクト概要
+## 📋 システム要件
 
-本プロジェクトは、Electron.jsを基盤としたデスクトップアプリケーションとして、AI技術を活用した図面解析システムを開発するものです。ユーザーは図面ファイルをアップロードし、AI解析結果をテーブル形式で確認および活用することができます。
+### 最小要件
 
-## 技術仕様
+- **OS**: Windows 10 (64-bit) / macOS 10.14+ / Ubuntu 18.04+
+- **RAM**: 8GB以上
+- **ストレージ**: 2GB以上の空き容量
+- **ネットワーク**: AI API使用時にインターネット接続が必要
 
-### 基盤技術
-- **フレームワーク**: Electron.js（最新安定版）
-- **フロントエンド**: React.js + TypeScript
-- **バックエンド処理**: Node.js（Electronメインプロセス）
-- **AI API**: OpenAI GPT-4 Vision API または Google Vision API
-- **UI コンポーネント**: Ant Design または Material-UI
-- **データ管理**: SQLite（ローカルデータベース）
+### 推奨要件
 
-### アーキテクチャ設計
+- **RAM**: 16GB以上
+- **CPU**: Intel Core i5 / AMD Ryzen 5以上
+- **GPU**: 統合グラフィックス以上
 
-#### メインプロセス（Node.js）
-メインプロセスでは、ファイル操作とAI API通信を担当します。図面ファイルの読み込み、画像前処理、API リクエスト送信、レスポンス処理を実行し、セキュリティ要件に対応するため、処理後の一時ファイルは自動削除します。
+## 🛠️ 技術スタック
 
-#### レンダラープロセス（React.js）
-レンダラープロセスでは、ユーザーインターフェースの表示と操作を担当します。図面ファイルのドラッグ＆ドロップアップロード、解析進捗の表示、結果テーブルの表示と編集機能、データのエクスポート機能を提供します。
+- **フレームワーク**: [Electron.js](https://electronjs.org/) v37+
+- **フロントエンド**: [React](https://reactjs.org/) v19 + [TypeScript](https://typescriptlang.org/) v5
+- **UI ライブラリ**: [Ant Design](https://ant.design/) v5
+- **ビルドツール**: [Webpack](https://webpack.js.org/) v5
+- **データベース**: [SQLite3](https://sqlite.org/)
+- **AI API**: OpenAI GPT-4 Vision / Google Vision API
 
-#### データフロー
-ユーザーが図面ファイルをアップロードすると、メインプロセスで画像前処理を実行し、AI APIに送信します。解析結果を受信後、構造化データに変換してローカルデータベースに保存し、レンダラープロセスでテーブル表示します。
+## 📚 ドキュメント
 
-## 機能要件
+### 開発者向け
 
-### 図面アップロード機能
-対応ファイル形式はJPEG、PNG、PDF、DWG、DXFとし、ドラッグ＆ドロップおよびファイル選択ダイアログによるアップロードを可能とします。ファイルサイズ制限は50MB以内、複数ファイルの一括アップロードにも対応します。
+| ドキュメント | 説明 |
+|-------------|------|
+| [開発ガイドライン](./docs/DEVELOPMENT_GUIDE.md) | 開発環境構築・開発フロー |
+| [コーディング規約](./docs/CODING_STANDARDS.md) | TypeScript/React規約・ベストプラクティス |
+| [アーキテクチャ](./docs/ARCHITECTURE.md) | システム設計・構成 |
+| [ビルド手順](./docs/BUILD.md) | ビルド・デプロイ・配布手順 |
+| [API仕様](./docs/API.md) | IPC通信・内部API仕様 |
 
-### AI解析機能
-OpenAI GPT-4 Vision APIまたはGoogle Vision APIを使用して図面解析を実行します。解析内容には、寸法情報の抽出、部品リストの識別、材質情報の抽出、図面タイトルと図番の識別が含まれます。処理時間は図面一枚あたり10秒以内を目標とします。
-
-### データ表示機能
-解析結果をテーブル形式で表示し、列の並び替え、フィルタリング、検索機能を提供します。セルの編集機能、行の追加・削除機能も実装し、データの手動修正を可能とします。
-
-### データ管理機能
-解析結果をSQLiteデータベースに保存し、プロジェクト単位での管理を行います。CSV、Excel形式でのエクスポート機能、データのバックアップ・復元機能を提供します。
-
-## セキュリティ要件
-
-### データ保護
-図面データは処理完了後、メモリとディスクから完全削除します。API通信はHTTPS暗号化を使用し、ローカルデータベースはAES-256で暗号化します。ログファイルには機密情報を記録しません。
-
-### アクセス制御
-アプリケーション起動時の認証機能を実装し、ユーザー権限に基づく機能制限を設定します。外部ネットワークアクセスは必要最小限に制限します。
-
-## パフォーマンス要件
-
-### 処理時間
-図面一枚あたりの解析時間は10秒以内とし、複数ファイルの並列処理により全体の処理時間を短縮します。画像前処理の最適化により、API通信時間を削減します。
-
-### システム要件
-Windows 10以上、macOS 10.14以上、RAM 8GB以上、ストレージ空き容量 2GB以上を動作環境とします。
-
-## 実装指示（Claude Code用）
-
-### プロジェクト初期化
-Electron.jsプロジェクトを新規作成し、必要なパッケージをインストールします。TypeScriptとReact.jsの設定を行い、開発環境を構築します。
+### スクリプト
 
 ```bash
-npm create electron-app@latest drawing-insight-desktop --template=typescript-webpack
-cd drawing-insight-desktop
-npm install react react-dom antd sqlite3 axios
-npm install --save-dev @types/react @types/react-dom
+# 開発
+npm run dev          # 開発用ビルド（ウォッチモード）
+npm run electron     # Electronアプリ起動
+npm start           # プロダクション版起動
+
+# ビルド
+npm run build       # プロダクション用ビルド
+npm run dist        # 配布用パッケージ作成
+npm run dist:win    # Windows用パッケージ
+npm run dist:mac    # macOS用パッケージ
+npm run dist:linux  # Linux用パッケージ
+
+# 品質管理
+npm test           # テスト実行
+npm run lint       # ESLintチェック
+npm run type-check # TypeScript型チェック
 ```
 
-### ディレクトリ構造
+## 🏗️ プロジェクト構造
+
 ```
-src/
-├── main/           # メインプロセス
-│   ├── main.ts
-│   ├── fileHandler.ts
-│   ├── aiService.ts
-│   └── database.ts
-├── renderer/       # レンダラープロセス
-│   ├── App.tsx
-│   ├── components/
-│   │   ├── FileUpload.tsx
-│   │   ├── AnalysisProgress.tsx
-│   │   └── ResultTable.tsx
-│   └── utils/
-└── shared/         # 共通型定義
-    └── types.ts
+drawing-insight-desktop/
+├── src/
+│   ├── main/                 # メインプロセス（Node.js）
+│   │   ├── main.ts          # アプリケーションエントリーポイント
+│   │   ├── preload.ts       # セキュアなIPC通信設定
+│   │   ├── fileHandler.ts   # ファイル操作・検証
+│   │   ├── aiService.ts     # AI API連携
+│   │   └── database.ts      # SQLiteデータベース管理
+│   ├── renderer/            # レンダラープロセス（React）
+│   │   ├── App.tsx         # メインUIコンポーネント
+│   │   ├── components/     # UIコンポーネント
+│   │   │   ├── FileUpload.tsx
+│   │   │   ├── AnalysisProgress.tsx
+│   │   │   └── ResultTable.tsx
+│   │   └── utils/          # ユーティリティ関数
+│   └── shared/             # 共通型定義
+│       └── types.ts
+├── docs/                   # ドキュメント
+├── assets/                 # 静的リソース
+├── build/                  # ビルド設定・アイコン
+├── dist/                   # ビルド出力
+└── release/               # 配布用パッケージ
 ```
 
-### 主要コンポーネント実装
+## 🔧 設定
 
-#### メインプロセス
-ファイルハンドラーでは、図面ファイルの読み込みと前処理、サポートされているファイル形式の検証、一時ファイルの管理を実装します。AI サービスでは、OpenAI またはGoogle Vision APIとの通信、レスポンスデータの構造化、エラーハンドリングを実装します。データベース管理では、SQLiteデータベースの初期化、CRUD操作、データの暗号化を実装します。
+### 環境変数
 
-#### レンダラープロセス
-ファイルアップロードコンポーネントでは、ドラッグ＆ドロップインターフェース、ファイル選択ダイアログ、アップロード進捗表示を実装します。解析進捗コンポーネントでは、リアルタイム進捗表示、処理状況の可視化、エラー状態の表示を実装します。結果テーブルコンポーネントでは、データの表形式表示、編集機能、エクスポート機能を実装します。
+アプリケーション設定のため、`.env`ファイルを作成してください：
 
-### API連携実装
-環境変数でAPIキーを管理し、設定ファイルでAPI選択を可能とします。レート制限に対応した再試行ロジックを実装し、API レスポンスの適切な解析処理を行います。
+```bash
+# AI API設定
+OPENAI_API_KEY=your_openai_api_key
+GOOGLE_VISION_API_KEY=your_google_vision_api_key
 
-### エラーハンドリング
-包括的なエラーキャッチ機能を実装し、ユーザーフレンドリーなエラーメッセージを表示します。ログ機能を実装し、デバッグ情報を適切に記録します。
+# データベース設定
+DB_ENCRYPTION_KEY=your_32_char_encryption_key
 
-### テスト要件
-ユニットテストではJestを使用してコンポーネントとAPIロジックをテストし、統合テストではElectronアプリケーション全体の動作を検証します。E2Eテストでは実際のワークフローをテストします。
+# 開発設定
+NODE_ENV=development
+LOG_LEVEL=debug
+```
 
-## 開発フェーズ
+### AI API設定
 
-### フェーズ1: 基盤構築
-Electronアプリケーションの初期設定、基本的なUI構築、ファイルアップロード機能の実装を行います。
+1. **OpenAI API**
+   - [OpenAI Platform](https://platform.openai.com/)でAPIキーを取得
+   - GPT-4 Visionへのアクセス権限が必要
 
-### フェーズ2: AI連携
-AI API統合、図面解析機能の実装、結果データの構造化を行います。
+2. **Google Vision API**
+   - [Google Cloud Console](https://console.cloud.google.com/)でプロジェクト作成
+   - Vision APIを有効化してAPIキーを取得
 
-### フェーズ3: データ管理
-データベース実装、テーブル表示機能、編集機能の実装を行います。
+## 🚦 開発状況
 
-### フェーズ4: 最適化
-パフォーマンス改善、セキュリティ強化、エラーハンドリングの充実を行います。
+### 現在の実装状況
 
-## 品質保証
+- ✅ **フェーズ1**: 基盤構築完了
+  - Electronアプリケーション基盤
+  - React UIフレームワーク
+  - TypeScript設定
+  - ビルドシステム
 
-コード品質管理にはESLintとPrettierを使用し、TypeScriptの型チェックを徹底します。セキュリティ監査を定期的に実施し、脆弱性スキャンを実行します。ユーザビリティテストを通じて、実際の使用環境での動作を検証します。
+- 🚧 **フェーズ2**: AI連携（進行中）
+  - AIサービス統合
+  - 図面解析機能
+  - 結果データ構造化
 
-本仕様書に基づく実装により、要求仕様を満たす高品質なAI図面解析アプリケーションの開発が可能となります。
+- 📋 **フェーズ3**: データ管理（計画中）
+  - SQLiteデータベース実装
+  - CRUD操作
+  - エクスポート機能
+
+- 📋 **フェーズ4**: 最適化（計画中）
+  - パフォーマンス改善
+  - セキュリティ強化
+  - エラーハンドリング充実
+
+### ロードマップ
+
+| バージョン | 予定時期 | 主な機能 |
+|-----------|---------|---------|
+| v1.0.0 | 2024 Q1 | 基本的な図面解析機能 |
+| v1.1.0 | 2024 Q2 | バッチ処理・エクスポート強化 |
+| v1.2.0 | 2024 Q3 | プラグインシステム |
+| v2.0.0 | 2024 Q4 | クラウド連携・コラボレーション |
+
+## 🤝 コントリビューション
+
+プロジェクトへの貢献を歓迎します！
+
+### 貢献方法
+
+1. このリポジトリをフォーク
+2. 機能ブランチを作成 (`git checkout -b feature/amazing-feature`)
+3. 変更をコミット (`git commit -m 'Add amazing feature'`)
+4. ブランチをプッシュ (`git push origin feature/amazing-feature`)
+5. プルリクエストを作成
+
+### 開発規約
+
+- [コーディング規約](./docs/CODING_STANDARDS.md)に従ってください
+- すべての変更にはテストを含めてください
+- コミットメッセージは[Conventional Commits](https://conventionalcommits.org/)形式で記述してください
+
+## 🐛 問題報告
+
+バグ報告や機能要求は[Issues](https://github.com/genkis3zu/drawing-insight-desktop/issues)でお知らせください。
+
+### 報告時の情報
+
+- OS・バージョン
+- アプリケーションバージョン
+- 再現手順
+- 期待される動作
+- 実際の動作
+- エラーメッセージ（あれば）
+
+## 📄 ライセンス
+
+このプロジェクトは[MIT License](LICENSE)のもとで公開されています。
+
+## 👥 開発チーム
+
+- **メイン開発**: [genkis3zu](https://github.com/genkis3zu)
+- **AI開発支援**: Claude Code
+
+## 🙏 謝辞
+
+- [Electron.js](https://electronjs.org/)チーム
+- [React](https://reactjs.org/)チーム
+- [Ant Design](https://ant.design/)チーム
+- [OpenAI](https://openai.com/)
+- [Google Cloud](https://cloud.google.com/)
+
+---
+
+## 📞 サポート・連絡先
+
+- **GitHub Issues**: [問題報告・機能要求](https://github.com/genkis3zu/drawing-insight-desktop/issues)
+- **Discussions**: [質問・相談](https://github.com/genkis3zu/drawing-insight-desktop/discussions)
+- **Email**: [プロジェクト管理者へ](mailto:genkis3zu@example.com)
+
+---
+
+*Drawing Insight Desktop - AI-Powered Drawing Analysis for Everyone*
